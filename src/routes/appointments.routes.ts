@@ -21,13 +21,13 @@ appointmentsRoutes.get('/', async (request, response) => {
 // CREATION OF APPOINTMENT
 appointmentsRoutes.post('/', async (request, response) => {
   try {
-    const { provider, date } = request.body;
+    const { provider_id, date } = request.body;
   
     const parsedDate = parseISO(date);
 
     const createAppointmentService = new CreateAppointmentService();
   
-    const appointment = await createAppointmentService.execute({ provider, date: parsedDate });
+    const appointment = await createAppointmentService.execute({ provider_id, date: parsedDate });
   
     return response.status(200).json(appointment);
     
@@ -46,13 +46,13 @@ appointmentsRoutes.post('/', async (request, response) => {
 // UPDATE APPOINTMENT
 appointmentsRoutes.put('/', async ( request, response ) => {
   try {
-    const { id, provider, date } = request.body;
+    const { id, provider_id, date } = request.body;
   
     const parsedDate = parseISO(date);
   
     const updateAppointmentService = new UpdateAppointmentService();
   
-    const appointment = await updateAppointmentService.execute({ id, provider, date: parsedDate });
+    const appointment = await updateAppointmentService.execute({ id, provider_id, date: parsedDate });
   
     return response.status(200).json(appointment);
   } catch (error) {

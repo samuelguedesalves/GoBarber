@@ -5,7 +5,7 @@ import Appointment from '../models/Appointment';
 import AppointmentsRepository from '../repositories/AppointmentRepository';
 
 class CreateAppointmentService {
-  public async execute ({provider, date}: Omit<Appointment, 'id'> ): Promise<Appointment> {
+  public async execute ({ date, provider_id,   }: Omit<Appointment, 'id'|'created_at'|'updated_at'|'provider' > ): Promise<Appointment> {
     const appointmentsRepository = getCustomRepository(AppointmentsRepository);
 
     const appointmentDate = startOfHour(date);
@@ -16,7 +16,7 @@ class CreateAppointmentService {
       throw new Error('This appointment is already booked');
     }
 
-    const appointment = appointmentsRepository.create({ provider, date: appointmentDate });
+    const appointment = appointmentsRepository.create({ provider_id, date: appointmentDate });
 
     await appointmentsRepository.save(appointment);
 

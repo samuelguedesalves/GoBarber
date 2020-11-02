@@ -5,13 +5,13 @@ import Appointment from '../models/Appointment';
 import AppointmentsRepository from '../repositories/AppointmentRepository';
 
 interface UpdateAppointmentDTO {
-  id: string;
-  provider: string;
+  id: string,
+  provider_id: string;
   date: Date;
 }
 
 class UpdateAppointmentService {
-  public async execute ({ id, provider, date }: UpdateAppointmentDTO): Promise<Appointment> {
+  public async execute ({ id, provider_id, date }: UpdateAppointmentDTO): Promise<Appointment> {
     const appointmentsRepository = getCustomRepository(AppointmentsRepository);
 
     const appointment = await appointmentsRepository.findOne({ where: { id } });
@@ -22,7 +22,6 @@ class UpdateAppointmentService {
 
     const appointmentDate = startOfHour(date);
 
-    appointment.provider = provider;
     appointment.date = appointmentDate;
 
     await appointmentsRepository.save(appointment);
