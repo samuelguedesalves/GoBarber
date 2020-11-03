@@ -5,7 +5,7 @@ import Appointment from '../models/Appointment';
 import AppointmentsRepository from '../repositories/AppointmentRepository';
 
 class CreateAppointmentService {
-  public async execute ({ date, provider_id,   }: Omit<Appointment, 'id'|'created_at'|'updated_at'|'provider' > ): Promise<Appointment> {
+  public async execute ({ provider_id, date  }: Omit<Appointment, 'id'|'created_at'|'updated_at'|'provider' > ): Promise<Appointment> {
     const appointmentsRepository = getCustomRepository(AppointmentsRepository);
 
     const appointmentDate = startOfHour(date);
